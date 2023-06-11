@@ -1,4 +1,4 @@
-import database_actions 
+from sql1 import database_actions 
 
 def get_top_agents_reservations_in_country(country):
     return database_actions.query(
@@ -11,15 +11,15 @@ def get_top_agents_reservations_in_country(country):
         INNER JOIN  guest g 
         ON r.GuestId = g.GuestId
         GROUP BY r.agent, g.country
-        HAVING   g.country = 'GBR'
-        ORDER BY agent_bookings DESC)
+        HAVING   g.country = \'''' + country + 
+        '''\' ORDER BY agent_bookings DESC)
 
         SELECT TOP (10)
         r.*, g.*
         FROM top_agent
         LEFT JOIN RESERVATION r ON top_agent.agent = r.agent
         LEFT JOIN Guest g ON r.GuestId = g.GuestId
-        WHERE g.country = ‘“ + country +”’”;'''
+        WHERE g.country = \''''+ country + '''\' ;'''
     )
 
 def get_info_for_yr_within_adr(year, ADR1, ADR2):
@@ -27,8 +27,8 @@ def get_info_for_yr_within_adr(year, ADR1, ADR2):
     '''SELECT *
     FROM Reservation r
     INNER JOIN Guest g ON g.GuestId = r.GuestId
-    WHERE (YEAR(r.arrival_date) = ‘“ + year +”’”)
-    AND (r.adr BETWEEN ‘“ + ADR1 +”’” AND ‘“ + ADR2 +”’”)
+    WHERE YEAR(r.arrival_date) = ''' +str(year) +'''
+    AND (r.adr BETWEEN ''' + str(ADR1) +''' AND ''' + str(ADR2) +''')
     AND (r.is_canceled != 1);'''   
    ) 
 

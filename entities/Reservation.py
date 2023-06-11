@@ -1,5 +1,5 @@
 
-import Guest
+from entities import Guest
 
 from enum import Enum
 
@@ -29,22 +29,22 @@ class Reservation:
         
     def __init__(self, row):
         self.ReservationId = row["ReservationId"]
-        self.hotel = Hotel[row["hotel"]]
+        self.hotel = Hotel[row["hotel"].upper().replace(" ", "_")]
         self.is_canceled = row["is_canceled"]
         self.lead_time = row["lead_time"]
         self.arrival_date_week = row["arrival_date_week_number"]
         self.stays_in_weekend_nights = row["stays_in_weekend_nights"]
         self.stays_in_week_nights = row["stays_in_week_nights"]
-        self.meal = Meal[row["meal"]]
+        self.meal = Meal[row["meal"].upper().replace(" ", "_")]
         self.market_segment = row["market_segment"]
-        self.distribution_channel = Distribution_channel[row["distribution_channel"]]
-        self.is_repeated_guest = row["repeated_guest"]
+        self.distribution_channel = Distribution_channel[row["distribution_channel"].upper().replace("/", "_")]
+        self.is_repeated_guest = row["is_repeated_guest"]
         self.previous_cancellations = row["previous_cancellations"]
-        self.previous_bookings_not_cancelled = row["previous_bookings_not_cancelled"]
+        self.previous_bookings_not_canceled = row["previous_bookings_not_canceled"]
         self.reserved_room_type = row["reserved_room_type"]
         self.assigned_room_type = row["assigned_room_type"]
         self.booking_changes = row["booking_changes"]
-        self.deposit_type = Deposit_type[row["booking_changes"]]
+        self.deposit_type = Deposit_type[row["deposit_type"].upper().replace(" ", "_")]
         self.agent = row["agent"]
         self.company = row["company"]
         self.days_in_waiting_list = row["days_in_waiting_list"]
